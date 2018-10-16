@@ -1,0 +1,10 @@
+<?xml version='1.0' ?>
+<doc>
+    <area>Division</area>
+    <zone>Sub Division</zone>
+    <billcycle>Cycle</billcycle>
+    <billcyclename>Cycle Name</billcyclename>
+    <route>Binder</route>
+    <detail>SUB DIVISION DETAILS</detail>
+
+</doc>

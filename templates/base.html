@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+{% load staticfiles %}
+<head>
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/select2/css/select2.min.css' %}" rel="stylesheet" type="text/css"/>
+    <!--<link href="{% static 'assets/global/plugins/select2/css/select2-bootstrap.min.css' %}" rel="stylesheet"-->
+    <!--type="text/css"/>-->
+    <link href="{% static 'assets/global/plugins/uniform/css/uniform.default.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <link href="{% static 'assets/global/plugins/datatables/datatables.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css' %}"
+          rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/global/plugins/bootstrap-toastr/toastr.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="{% static 'assets/global/css/components.min.css' %}" rel="stylesheet" id="style_components"
+          type="text/css"/>
+    <link href="{% static 'assets/global/css/plugins.min.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="{% static 'assets/layouts/layout/css/layout.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/layouts/layout/css/themes/darkblue.min.css' %}" rel="stylesheet" type="text/css"
+          id="style_color"/>
+    <link href="{% static 'assets/layouts/layout/css/custom.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/layouts/layout3/css/ms_custom.css'%}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/pages/css/dropzone.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- END THEME LAYOUT STYLES -->
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <style>
+        .input-group{
+        padding-top: 0px !important;
+        }
+        td{
+        text-align: center;
+        }
+        th{
+        text-align: center;
+        }
+        .btn-sm{
+        width: 80px;
+        padding: 5px 7px;
+        }
+    #processing{
+        height: 100vh;
+        position: fixed;
+        width: 100%;
+        margin: 0px auto;
+        z-index: 1000;
+        background-color: #FFF;
+        background-image: none;
+        background-attachment: scroll;
+        background-position: 0% 0%;
+        background-clip: border-box;
+        background-origin: padding-box;
+        background-repeat: repeat;
+        background-size: inherit;
+        opacity: 0.5;
+    }
+
+    #loading{
+        width: 36%;
+        height: 22px;
+        position: absolute;
+        top: 26%;
+        left: 32%;
+        margin: -28px 0px 0px -25px;
+        text-align: center;
+        font-size: 13px;
+        font-weight: 500;
+        color: #000;
+    }
+
+    </style>
+</head>
+<!-- END HEAD -->
+
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-closed">
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner">
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse"
+           data-target=".navbar-collapse"> </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+
+        <div class="top-menu">
+
+            <ul class="nav navbar-nav pull-right">
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-user dropdown-dark">
+                    <!--dir="rtl"-->
+                    <select class="form-control" id="citySelect"
+                            style="margin-top: 4%;background: #2b3643;color: #ccc;border-color: #2b3643;"></select>
+
+                </li>
+
+                <li class="droddown dropdown-separator">
+                    <span class="separator"></span>
+                </li>
+
+                <li class="dropdown dropdown-user">
+
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                       data-close-others="true">
+                        <img alt="" class="img-circle"
+                             src="{% static 'assets/layouts/layout/img/avatar3_small.jpg' %}"/>
+                        <span class="username username-hide-on-mobile">{{request.user.username}} </span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a href="/authentication/logout">
+                                <i class="icon-key"></i> Log Out </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+<!-- BEGIN HEADER & CONTENT DIVIDER -->
+<div class="clearfix"></div>
+<!-- END HEADER & CONTENT DIVIDER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <!-- BEGIN SIDEBAR -->
+        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+        <div class="page-sidebar navbar-collapse collapse">
+            <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-closed" data-keep-expanded="false"
+                data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper hide">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler"></div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+                <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+                <li id="admin" class="nav-item">
+                    <a id="admin_anchor" href="/administrator/" class="nav-link nav-toggle"><span
+                            class="selected"></span>
+                        <i class="icon-settings"></i>
+                        <span class="title">Administrators</span>
+                        <span id="admin_span" class="arrow"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- END SIDEBAR -->
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <!--Todo show processing image start-->
+    <div id="processing" style="display:none;">
+        <div id="loading">
+            <img src="{%static 'assets/layouts/layout3/img/25.gif' %}" style="height : 100px;">
+        </div>
+    </div>
+    <!--Todo show processing image end-->
+    <div class="page-content-wrapper">
+        <!-- BEGIN CONTENT BODY -->
+        <div class="page-content">
+
+            {% block content %}
+
+            {% endblock %}
+
+        </div>
+    </div>
+    <!-- END CONTENT -->
+
+
+    <div class="page-footer">
+        <div class="page-footer-inner"> 2017 &copy; Bynry Technologies India Pvt. Ltd.
+
+        </div>
+        <div class="scroll-to-top">
+            <i class="icon-arrow-up"></i>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- END FOOTER -->
+<!--[if lt IE 9]>
+<script src="{% static 'assets/global/plugins/respond.min.js' %}"></script>
+<script src="{% static 'assets/global/plugins/excanvas.min.js' %}"></script>
+<![endif]-->
+<!-- BEGIN CORE PLUGINS -->
+<script src="{% static 'assets/global/plugins/jquery.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/js.cookie.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery.blockui.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/uniform/jquery.uniform.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"
+        type="text/javascript"></script>
+
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="{% static 'assets/global/scripts/datatable.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/datatables/datatables.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/moment.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/morris/morris.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/morris/raphael-min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/counterup/jquery.waypoints.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/counterup/jquery.counterup.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/fullcalendar/fullcalendar.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/flot/jquery.flot.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/flot/jquery.flot.resize.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/flot/jquery.flot.categories.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery.sparkline.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-validation/js/jquery.validate.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/jquery-validation/js/additional-methods.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/form-validation-md.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/components-bootstrap-switch.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-toastr/toastr.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/ui-toastr.min.js' %}" type="text/javascript"></script>
+
+
+<!--Todo Showing Dashboard Graph start-->
+<script src="{% static 'assets/global/plugins/amcharts/amcharts/amcharts.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/amcharts/amcharts/serial.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/amcharts/amcharts/pie.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/amcharts/amcharts/radar.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/amcharts/amcharts/themes/light.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/amcharts/amcharts/themes/patterns.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/amcharts/amcharts/themes/chalk.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/amcharts/ammap/ammap.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/amcharts/ammap/maps/js/worldLow.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/amcharts/amstockcharts/amstock.js' %}" type="text/javascript"></script>
+<!--Todo Showing Dashboard Graph end-->
+
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN THEME GLOBAL SCRIPTS -->
+<script src="{% static 'assets/global/scripts/app.min.js' %}" type="text/javascript"></script>
+<!-- END THEME GLOBAL SCRIPTS -->
+
+<!-- BEGIN THEME LAYOUT SCRIPTS -->
+<script src="{% static 'assets/layouts/layout/scripts/layout.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/layout/scripts/demo.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layouts/global/scripts/quick-sidebar.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/select2/js/select2.full.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/table-datatables-editable.min.js' %}" type="text/javascript"></script>
+<!--<script src="{% static 'assets/pages/scripts/components-select2.min.js' %}" type="text/javascript"></script>-->
+<!-- END THEME LAYOUT SCRIPTS -->
+
+<script src="{% static 'assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'assets/global/plugins/clockface/js/clockface.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/components-date-time-pickers.min.js' %}" type="text/javascript"></script>
+<script src="{%static 'custom-js/jquery.validate.js'%}" type="text/javascript"></script>
+<script src="{%static 'custom-js/bootbox.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets/pages/scripts/dropzone.js' %}"></script>
+{% block js_block %}{% endblock %}
+<script type="text/javascript">
+$(function(){
+  toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "positionClass": "toast-top-center",
+      "onclick": null,
+      "showDuration": "1000",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+  }
+
+      $.ajax({
+        type: "GET",
+        url: "/static/levels.xml",
+        dataType: "xml",
+        success: function (xml){
+        var area = $(xml).find('area').text();
+        var billcycle = $(xml).find('billcycle').text();
+        var billcyclename = $(xml).find('billcyclename').text();
+        var route = $(xml).find('route').text();
+        var detail= $(xml).find('detail').text();
+        var zone= $(xml).find('zone').text();
+
+
+        $('.arealbl').html(area)
+        $('.billcyclelbl').html(billcycle)
+        $('.billcyclenamelbl').html(billcyclename)
+        $('.routelbl').html(route)
+        $('.detaillbl').html(detail)
+        $('.zonelbl').html(zone)
+
+
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "/administrator/get-cities/",
+        success: function(response){
+            console.log(response)
+            if (response.success=='true'){
+            $.each(response.cities, function (i, item) {
+                $('#citySelect').append($('<option>', {
+                    value: item.id,
+                    text : item.city
+                }));
+            });
+            $('#citySelect').val(response.currentCity);
+            }
+        }
+    });
+
+});
+</script>
+</body>
+</html>
+

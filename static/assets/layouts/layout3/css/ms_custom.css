@@ -1,0 +1,14 @@
+.ms_custom_mar_top25{
+    margin-top: 25px ! important;
+}
+
+.meter_image, .suspicious_image, .previous_image {
+    height: 500px;
+    width: 500px;
+    top: 0px;
+    left: -510px;
+    display: none;
+    opacity: 1;
+    position: absolute;
+    background-color: white;
+}
