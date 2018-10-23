@@ -120,7 +120,7 @@
                                     <div class="form-group form-md-line-input has-success show_error"
                                          id="error_billMonth">
                                         <label class="control-label">Bill Month *</label>
-                                        <input type="text" class="form-control" id="bill_month" name="bill_month">
+                                        <input type="number" min="1" class="form-control" id="bill_month" name="bill_month">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -134,7 +134,7 @@
                                     <div class="form-group form-md-line-input has-success show_error"
                                          id="error_billCycleCode">
                                         <label class="control-label billcyclelbl">Cycle*</label><br>
-                                         <input type="text" class="form-control"  id="cycle" name="cycle">
+                                         <input type="text" class="form-control" onkeypress="return isNumberKey(event, this)" maxlength="3" id="cycle" name="cycle">
                                     </div>
                                 </div>
                             </div>
@@ -266,6 +266,7 @@
                         </div>
                     </div>
                 </div>
+                <input hidden id="data_id" name="data_id">
             </form>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>

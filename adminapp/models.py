@@ -2,6 +2,7 @@ from django.db import models
 
 
 # Create your models here.
+# Table for saving data
 class SaveData(models.Model):
     bill_month = models.CharField(max_length=50, blank=True, null=True)
     sub_division = models.CharField(max_length=50, blank=True, null=True)
@@ -22,4 +23,4 @@ class SaveData(models.Model):
     due_date = models.CharField(max_length=50, blank=True, null=True)
 
     def __unicode__(self):
-        return unicode(str(id))
+        return unicode(self.cycle)
